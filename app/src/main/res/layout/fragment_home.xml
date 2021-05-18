@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="52dp"
+    tools:context=".Fragment.HomeFragment">
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/search_bg"
+        android:queryHint="Search Snacks"/>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:text="Find your"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/regular"
+        tools:ignore="HardcodedText" />
+    <TextView
+        android:id="@+id/text2"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="favourite snacks"
+        android:fontFamily="@font/candal"
+        android:layout_below="@id/text"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/secondary"
+        android:textSize="19sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/categoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categories"
+        android:layout_below="@+id/searchView"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/candal"
+        android:textColor="@color/regular"
+        tools:ignore="HardcodedText" />
+
+   <HorizontalScrollView
+       android:id="@+id/scrollView"
+       android:layout_width="wrap_content"
+       android:layout_height="70dp"
+       android:layout_marginStart="20dp"
+       android:layout_marginEnd="20dp"
+       android:scrollbars="none"
+       android:layout_below="@id/categoryText">
+
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:id="@+id/allCategory"
+               android:layout_width="60dp"
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="5dp"
+               android:gravity="center"
+               android:layout_height="wrap_content"
+               android:text="All"
+               android:background="@drawable/all_cat_bg"
+               android:padding="10dp"
+               android:textColor="@color/white"
+               android:fontFamily="@font/candal"
+               tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/snacks"
+               android:layout_width="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="20dp"
+               android:gravity="center"
+               android:layout_height="wrap_content"
+               android:text="Snacks"
+               android:background="@drawable/cat_bg"
+               android:layout_toRightOf="@id/allCategory"
+               android:padding="10dp"
+               android:textColor="@color/secondary"
+               android:fontFamily="@font/candal"
+               tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/sweet"
+               android:layout_width="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="20dp"
+               android:gravity="center"
+               android:layout_height="wrap_content"
+               android:text="Sweets"
+               android:background="@drawable/cat_bg"
+               android:layout_toRightOf="@id/snacks"
+               android:padding="10dp"
+               android:textColor="@color/secondary"
+               android:fontFamily="@font/candal"
+               tools:ignore="HardcodedText" />
+
+           <TextView
+               android:id="@+id/namkin"
+               android:layout_width="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="20dp"
+               android:gravity="center"
+               android:layout_height="wrap_content"
+               android:text="Namkin"
+               android:background="@drawable/cat_bg"
+               android:layout_toRightOf="@id/sweet"
+               android:padding="10dp"
+               android:textColor="@color/secondary"
+               android:fontFamily="@font/candal"
+               tools:ignore="HardcodedText" />
+           <TextView
+               android:id="@+id/drinks"
+               android:layout_width="wrap_content"
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="20dp"
+               android:gravity="center"
+               android:layout_height="wrap_content"
+               android:text="Drinks"
+               android:background="@drawable/cat_bg"
+               android:layout_toRightOf="@id/namkin"
+               android:padding="10dp"
+               android:layout_marginEnd="20dp"
+               android:textColor="@color/secondary"
+               android:fontFamily="@font/candal"
+               tools:ignore="HardcodedText" />
+
+       </RelativeLayout>
+
+   </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/popularText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popular Snacks"
+        android:layout_below="@+id/scrollView"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/candal"
+        android:textColor="@color/regular"
+        tools:ignore="HardcodedText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/recycleView"
+        android:layout_below="@id/popularText"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/recycleView2"
+        android:layout_below="@id/popularText"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/empty"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="visible"
+        android:layout_below="@id/popularText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        app:lottie_rawRes="@raw/empty"
+        app:lottie_autoPlay="true"/>
+    <TextView
+        android:id="@+id/emptyTxt"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Not found !!"
+        android:fontFamily="@font/candal"
+        android:layout_below="@id/empty"
+        android:layout_centerHorizontal="true"
+        tools:ignore="HardcodedText" />
+
+</RelativeLayout>
