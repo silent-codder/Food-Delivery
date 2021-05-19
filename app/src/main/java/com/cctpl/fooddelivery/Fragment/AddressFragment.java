@@ -44,9 +44,9 @@ public class AddressFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         UserId = firebaseAuth.getCurrentUser().getUid();
 
-        mAddressLine = view.findViewById(R.id.address);
+        mAddressLine = view.findViewById(R.id.addressLine);
         mCity = view.findViewById(R.id.city);
-        mState = view.findViewById(R.id.State);
+        mState = view.findViewById(R.id.state);
         mPinCode = view.findViewById(R.id.pinCode);
         mBtnAddAddress = view.findViewById(R.id.btnAddAddress);
 

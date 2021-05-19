@@ -10,11 +10,12 @@
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:inputType="textCapWords"
+        android:gravity="end"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/search_bg"
         android:queryHint="Search Snacks"/>
     <TextView
         android:id="@+id/text"
@@ -40,148 +41,199 @@
         android:textSize="19sp"
         tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/categoryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Categories"
-        android:layout_below="@+id/searchView"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/candal"
-        android:textColor="@color/regular"
-        tools:ignore="HardcodedText" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_below="@id/searchView"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-   <HorizontalScrollView
-       android:id="@+id/scrollView"
-       android:layout_width="wrap_content"
-       android:layout_height="70dp"
-       android:layout_marginStart="20dp"
-       android:layout_marginEnd="20dp"
-       android:scrollbars="none"
-       android:layout_below="@id/categoryText">
+        <TextView
+            android:id="@+id/marquee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:background="#E1F5FE"
+            android:textColor="@color/primary"
+            android:padding="5dp"
+            android:text="* Promotion Marquee *"
+            android:gravity="center"
+            android:fontFamily="@font/candal"
+            android:textStyle="bold"
+            android:ellipsize="marquee"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:fadingEdge="horizontal"
+            tools:ignore="HardcodedText" />
 
-       <RelativeLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/categoryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:layout_below="@+id/marquee"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/candal"
+            android:textColor="@color/regular"
+            tools:ignore="HardcodedText" />
 
-           <TextView
-               android:id="@+id/allCategory"
-               android:layout_width="60dp"
-               android:layout_marginTop="10dp"
-               android:layout_marginStart="5dp"
-               android:gravity="center"
-               android:layout_height="wrap_content"
-               android:text="All"
-               android:background="@drawable/all_cat_bg"
-               android:padding="10dp"
-               android:textColor="@color/white"
-               android:fontFamily="@font/candal"
-               tools:ignore="HardcodedText" />
-           <TextView
-               android:id="@+id/snacks"
-               android:layout_width="wrap_content"
-               android:layout_marginTop="10dp"
-               android:layout_marginStart="20dp"
-               android:gravity="center"
-               android:layout_height="wrap_content"
-               android:text="Snacks"
-               android:background="@drawable/cat_bg"
-               android:layout_toRightOf="@id/allCategory"
-               android:padding="10dp"
-               android:textColor="@color/secondary"
-               android:fontFamily="@font/candal"
-               tools:ignore="HardcodedText" />
-           <TextView
-               android:id="@+id/sweet"
-               android:layout_width="wrap_content"
-               android:layout_marginTop="10dp"
-               android:layout_marginStart="20dp"
-               android:gravity="center"
-               android:layout_height="wrap_content"
-               android:text="Sweets"
-               android:background="@drawable/cat_bg"
-               android:layout_toRightOf="@id/snacks"
-               android:padding="10dp"
-               android:textColor="@color/secondary"
-               android:fontFamily="@font/candal"
-               tools:ignore="HardcodedText" />
+        <HorizontalScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:scrollbars="none"
+            android:layout_below="@id/categoryText">
 
-           <TextView
-               android:id="@+id/namkin"
-               android:layout_width="wrap_content"
-               android:layout_marginTop="10dp"
-               android:layout_marginStart="20dp"
-               android:gravity="center"
-               android:layout_height="wrap_content"
-               android:text="Namkin"
-               android:background="@drawable/cat_bg"
-               android:layout_toRightOf="@id/sweet"
-               android:padding="10dp"
-               android:textColor="@color/secondary"
-               android:fontFamily="@font/candal"
-               tools:ignore="HardcodedText" />
-           <TextView
-               android:id="@+id/drinks"
-               android:layout_width="wrap_content"
-               android:layout_marginTop="10dp"
-               android:layout_marginStart="20dp"
-               android:gravity="center"
-               android:layout_height="wrap_content"
-               android:text="Drinks"
-               android:background="@drawable/cat_bg"
-               android:layout_toRightOf="@id/namkin"
-               android:padding="10dp"
-               android:layout_marginEnd="20dp"
-               android:textColor="@color/secondary"
-               android:fontFamily="@font/candal"
-               tools:ignore="HardcodedText" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-       </RelativeLayout>
+                <TextView
+                    android:id="@+id/allCategory"
+                    android:layout_width="60dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="5dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="All"
+                    android:background="@drawable/all_cat_bg"
+                    android:padding="10dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/candal"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/snacks"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Snacks"
+                    android:background="@drawable/cat_bg"
+                    android:layout_toRightOf="@id/allCategory"
+                    android:padding="10dp"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/candal"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/sweet"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Sweets"
+                    android:background="@drawable/cat_bg"
+                    android:layout_toRightOf="@id/snacks"
+                    android:padding="10dp"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/candal"
+                    tools:ignore="HardcodedText" />
 
-   </HorizontalScrollView>
+                <TextView
+                    android:id="@+id/namkin"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Namkin"
+                    android:background="@drawable/cat_bg"
+                    android:layout_toRightOf="@id/sweet"
+                    android:padding="10dp"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/candal"
+                    tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/drinks"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Drinks"
+                    android:background="@drawable/cat_bg"
+                    android:layout_toRightOf="@id/namkin"
+                    android:padding="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/candal"
+                    tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/popularText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Popular Snacks"
-        android:layout_below="@+id/scrollView"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:fontFamily="@font/candal"
-        android:textColor="@color/regular"
-        tools:ignore="HardcodedText" />
+                <TextView
+                    android:id="@+id/fasting"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:text="Fasting"
+                    android:background="@drawable/cat_bg"
+                    android:layout_toRightOf="@id/namkin"
+                    android:padding="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/secondary"
+                    android:fontFamily="@font/candal"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/popularText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular Snacks"
+            android:layout_below="@+id/scrollView"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/candal"
+            android:textColor="@color/regular"
+            tools:ignore="HardcodedText" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/recycleView"
+            android:layout_below="@id/popularText"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/recycleView2"
+            android:layout_below="@id/popularText"/>
+
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/recycleView"
-        android:layout_below="@id/popularText"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/recycleView2"
-        android:layout_below="@id/popularText"/>
+        android:layout_below="@id/searchView"
+        android:layout_marginTop="10dp"
+        android:id="@+id/searchRecycleView"/>
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/empty"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:visibility="visible"
-        android:layout_below="@id/popularText"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         app:lottie_rawRes="@raw/empty"
         app:lottie_autoPlay="true"/>
     <TextView
         android:id="@+id/emptyTxt"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Not found !!"

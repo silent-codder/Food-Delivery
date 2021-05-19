@@ -90,18 +90,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
-//                Button mBtnAddToCard = dialog.findViewById(R.id.btnAddCard);
-//                TextView mPriceCount = dialog.findViewById(R.id.priceCount);
-//                TextView mCount = dialog.findViewById(R.id.Count);
-//                TextView mPrice = dialog.findViewById(R.id.Price);
-//                ImageView mBtnAdd = dialog.findViewById(R.id.btnAdd);
-//                ImageView mBtnMinus = dialog.findViewById(R.id.btnMinus);
-//                TextView mItemCount = dialog.findViewById(R.id.count);
-//                TextView mProductWeight = dialog.findViewById(R.id.productWeight);
-//                TextView mProductPrice = dialog.findViewById(R.id.productPrice);
-//                TextView mProductName = dialog.findViewById(R.id.productName);
-//                CircleImageView mProductImg = dialog.findViewById(R.id.productImg);
-
                 mProductName = dialog.findViewById(R.id.productName);
                 mProductPrice = dialog.findViewById(R.id.productPrice);
                 mProductWeight = dialog.findViewById(R.id.productWeight);
@@ -161,7 +149,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                         map.put("TimeStamp",System.currentTimeMillis());
                         map.put("ItemCount",count);
                         map.put("TotalPrice",totalCount);
-                        map.put("MainPrice",ProductPrice);
+                        map.put("MainPrice",Price);
 
                         firebaseFirestore.collection("Users").document(UserId).collection("Card")
                                 .document(ProductId).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -185,23 +173,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                         });
                     }
                 });
-
-//                Button btnContinue = dialog.findViewById(R.id.btnContinue);
-//                btnContinue.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        dialog.dismiss();
-////                        Fragment fragment = new HomeFragment();
-////                        getFragmentManager().beginTransaction().replace(R.id.container,fragment).commit();
-//                    }
-//                });
-
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                Fragment fragment = new ProductViewFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("ProductId",ProductId);
-//                fragment.setArguments(bundle);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
             }
         });
     }
