@@ -76,7 +76,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             if (!TextUtils.isEmpty(Profile)){
                                 Picasso.get().load(Profile).into(holder.mProfileImg);
                             }else {
-                                holder.mProfileImg.setImageResource(R.drawable.shop);
+                                holder.mProfileImg.setImageResource(R.drawable.mauli);
                             }
                         }
                     }

@@ -1,6 +1,9 @@
 package com.cctpl.fooddelivery.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,6 +27,7 @@ import com.cctpl.fooddelivery.Adapter.ProductListAdapter;
 import com.cctpl.fooddelivery.Model.CardData;
 import com.cctpl.fooddelivery.Model.ProductData;
 import com.cctpl.fooddelivery.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -57,6 +61,7 @@ public class CartFragment extends Fragment {
 //        mTotalPrice = view.findViewById(R.id.totalPrice);
         UserId = firebaseAuth.getCurrentUser().getUid();
         recyclerView = view.findViewById(R.id.recycleView);
+
 
 
 
@@ -133,22 +138,52 @@ public class CartFragment extends Fragment {
         btnClearCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseFirestore.collection("Users").document(UserId)
-                        .collection("Card").addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+                Dialog dialog = new Dialog(v.getContext());
+                dialog.setContentView(R.layout.clear_cart_dialog);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+                Button btnYes = dialog.findViewById(R.id.btnYes);
+                TextView btnCancel = dialog.findViewById(R.id.btnCancel);
+                btnYes.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        for (DocumentChange doc : value.getDocumentChanges()){
-                            String ProductId = doc.getDocument().get("ProductId").toString();
-                            firebaseFirestore.collection("Users").document(UserId)
-                                    .collection("Card").document(ProductId).delete();
-                            cardAdapter.notifyDataSetChanged();
-                        }
+                    public void onClick(View v) {
+                        firebaseFirestore.collection("Users").document(UserId)
+                                .collection("Card").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                for (DocumentChange doc : value.getDocumentChanges()){
+                                    String ProductId = doc.getDocument().get("ProductId").toString();
+                                    firebaseFirestore.collection("Users").document(UserId)
+                                            .collection("Card").document(ProductId).delete();
+                                    cardAdapter.notifyDataSetChanged();
+                                    clear();
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
                     }
                 });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
             }
         });
 
         return view;
     }
 
+    public void clear() {
+        int size = cardData.size();
+        cardData.clear();
+        cardAdapter.notifyItemRangeRemoved(0,size);
+        mBtnCheckout.setVisibility(View.GONE);
+    }
 }

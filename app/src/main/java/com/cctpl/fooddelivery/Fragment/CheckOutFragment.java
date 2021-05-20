@@ -167,6 +167,7 @@ public class CheckOutFragment extends Fragment {
                     map.put("TimeStamp",System.currentTimeMillis());
                     map.put("TotalPrice",Total);
                     map.put("Status","Pending");
+                    map.put("Address",mAddress.getText().toString());
                     map.put("ProductCount",ProductCount);
                     Log.d(TAG, "ProductCount: " + ProductCount);
 
@@ -186,7 +187,6 @@ public class CheckOutFragment extends Fragment {
                                         map.put("ItemCount",Integer.valueOf(ItemCount));
                                         map.put("MainPrice",MainPrice);
                                         map.put("ProductId",ProductId);
-                                        map.put("Address",mAddress.getText().toString());
                                         map.put("TotalPrice",Integer.valueOf(TotalPrice));
                                         map.put("TimeStamp",System.currentTimeMillis());
 

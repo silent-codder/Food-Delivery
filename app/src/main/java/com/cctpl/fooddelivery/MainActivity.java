@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -94,11 +95,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 switch (item.getItemId()){
                     case R.id.home:
                         fragment = new HomeFragment();
@@ -124,5 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new HomeFragment()).commit();
     }
+
+
 
 }

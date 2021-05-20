@@ -44,5 +44,19 @@
         android:layout_centerHorizontal="true"
         tools:ignore="HardcodedText" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/filter"
+        android:text="Filter"
+        android:fontFamily="@font/candal"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/secondary"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/ic_baseline_filter_list_24"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        tools:ignore="HardcodedText" />
     
 </RelativeLayout>

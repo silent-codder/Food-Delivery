@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
     ProductListAdapter productListAdapter;
     ProductCatListAdapter productCatListAdapter;
     FirebaseFirestore firebaseFirestore;
-    SearchView searchView;
+    ImageView searchView;
     TextView textView1;
     TextView textView2;
     RelativeLayout relativeLayout;
@@ -57,63 +58,10 @@ public class HomeFragment extends Fragment {
         textView1 = view.findViewById(R.id.text);
         textView2 = view.findViewById(R.id.text2);
 
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+        searchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textView1.setVisibility(View.GONE);
-                textView2.setVisibility(View.GONE);
-                relativeLayout.setVisibility(View.GONE);
-            }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                textView1.setVisibility(View.VISIBLE);
-                textView2.setVisibility(View.VISIBLE);
-                relativeLayout.setVisibility(View.VISIBLE);
-                LottieAnimationView lottieAnimationView = getView().findViewById(R.id.empty);
-                TextView textView = getView().findViewById(R.id.emptyTxt);
-                lottieAnimationView.setVisibility(View.GONE);
-                textView.setVisibility(View.GONE);
-                return false;
-            }
-        });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                if(query.trim().length()<1)
-                {
-                    clear();
-                    LottieAnimationView lottieAnimationView = getView().findViewById(R.id.empty);
-                    TextView textView = getView().findViewById(R.id.emptyTxt);
-                    lottieAnimationView.setVisibility(View.VISIBLE);
-                    textView.setVisibility(View.VISIBLE);
-                }
-                else {
-//                    LottieAnimationView lottieAnimationView = view.findViewById(R.id.lottie);
-//                    TextView textView = view.findViewById(R.id.text);
-//                    lottieAnimationView.setVisibility(View.GONE);
-//                    textView.setVisibility(View.GONE);
-                    SearchData(query);
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if(newText.trim().length()<1)
-                {
-                    clear();
-                    LottieAnimationView lottieAnimationView = getView().findViewById(R.id.empty);
-                    TextView textView = getView().findViewById(R.id.emptyTxt);
-                    lottieAnimationView.setVisibility(View.VISIBLE);
-                    textView.setVisibility(View.VISIBLE);
-                }
-                else {
-
-                    SearchData(newText);
-                }
-                return false;
+                getFragmentManager().beginTransaction().replace(R.id.container,new SearchFragment()).addToBackStack(null).commit();
             }
         });
 
@@ -152,12 +100,6 @@ public class HomeFragment extends Fragment {
 
                 recyclerView.setVisibility(View.VISIBLE);
                 recyclerView2.setVisibility(View.GONE);
-
-                LottieAnimationView lottieAnimationView = getView().findViewById(R.id.empty);
-                TextView textView = getView().findViewById(R.id.emptyTxt);
-
-                lottieAnimationView.setVisibility(View.GONE);
-                textView.setVisibility(View.GONE);
                 allCategory();
             }
         });
@@ -379,13 +321,6 @@ public class HomeFragment extends Fragment {
                 int count = value.size();
                 TextView countTxt = getView().findViewById(R.id.popularText);
                 countTxt.setText("Popular Snacks (" + String.valueOf(count) + ")" );
-                if (!value.isEmpty()){
-                    LottieAnimationView lottieAnimationView = getView().findViewById(R.id.empty);
-                    TextView textView = getView().findViewById(R.id.emptyTxt);
-
-                    lottieAnimationView.setVisibility(View.GONE);
-                    textView.setVisibility(View.GONE);
-                }
 
                 for (DocumentChange doc : value.getDocumentChanges()){
                     if (doc.getType() == DocumentChange.Type.ADDED){

@@ -7,13 +7,16 @@
     android:layout_marginBottom="52dp"
     tools:context=".Fragment.HomeFragment">
 
-    <SearchView
+    <ImageView
         android:id="@+id/searchView"
         android:layout_width="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
         android:gravity="end"
+        android:src="@drawable/ic_search"
+        android:background="@drawable/search_bg"
+        android:padding="10dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:queryHint="Search Snacks"/>
@@ -43,7 +46,7 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_below="@id/searchView"
+        android:layout_below="@id/text2"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -56,7 +59,7 @@
             android:background="#E1F5FE"
             android:textColor="@color/primary"
             android:padding="5dp"
-            android:text="* Promotion Marquee *"
+            android:text="* Welcome to 'Mauli Sweets &amp; Namkeens' * * Special Mauli Bhel &amp; Mysor Special Product*"
             android:gravity="center"
             android:fontFamily="@font/candal"
             android:textStyle="bold"
@@ -215,31 +218,6 @@
 
     </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/searchView"
-        android:layout_marginTop="10dp"
-        android:id="@+id/searchRecycleView"/>
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/empty"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:visibility="gone"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        app:lottie_rawRes="@raw/empty"
-        app:lottie_autoPlay="true"/>
-    <TextView
-        android:id="@+id/emptyTxt"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Not found !!"
-        android:fontFamily="@font/candal"
-        android:layout_below="@id/empty"
-        android:layout_centerHorizontal="true"
-        tools:ignore="HardcodedText" />
+
 
 </RelativeLayout>
