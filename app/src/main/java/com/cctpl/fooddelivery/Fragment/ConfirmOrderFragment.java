@@ -150,6 +150,7 @@ public class ConfirmOrderFragment extends Fragment {
                                 }
                             });
                     mDeliveryCharge.setText("Free");
+                    Service = "Self Service";
                 }else {
                     Service = "Self Service";
                     mDeliveryCharge.setText("Free");
