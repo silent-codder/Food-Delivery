@@ -12,6 +12,7 @@
        android:layout_marginTop="10dp"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:textColor="@color/regular"
        android:paddingEnd="10dp"
        android:paddingTop="3dp"
        android:paddingBottom="3dp"
@@ -63,11 +64,39 @@
         android:layout_margin="3dp"
         android:background="@drawable/search_bg">
 
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:id="@+id/radioGrp">
+
+            <RadioButton
+                android:id="@+id/homeDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Home Delivery"
+                android:fontFamily="@font/candal"
+                tools:ignore="HardcodedText" />
+
+            <RadioButton
+                android:id="@+id/selfPickup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Self Pickup"
+                android:checked="true"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/candal"
+                tools:ignore="HardcodedText" />
+
+        </RadioGroup>
+
         <TextView
             android:id="@+id/deliveryText"
+            android:layout_below="@id/radioGrp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Delivery Services :"
+            android:hint="Delivery Charge :"
             android:fontFamily="@font/candal"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
@@ -78,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="₹ 50"
+            android:layout_below="@id/radioGrp"
             android:text="Free"
             android:textColor="@color/regular"
             android:layout_alignParentRight="true"
@@ -113,6 +143,7 @@
 
         <TextView
             android:id="@+id/extraText"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Est. Tax :"
@@ -126,6 +157,7 @@
             android:id="@+id/taxCharge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="₹ 50"
             android:layout_below="@id/subTotalPrice"
             android:textColor="@color/regular"

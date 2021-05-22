@@ -61,6 +61,7 @@ public class CheckOutFragment extends Fragment {
     ProgressBar progressBar;
     int Total,ProductCount;
     int Count,DelCount;
+    String Service;
     String fcmUrl = "https://fcm.googleapis.com/",CurrentUserName;
     String Token = "crQQeCjZ3c9y6LN_y6qDuz:APA91bG3fIqqpQtPwxuOurO64dIQQbEs1JFRS8tBgGG2RneeA_WRwc8xD6vmP2nmh7XKPGw17JQJzv9P7LIcxiuBB3nEzGLH0H8z3wlBGzsTgVz723-UwjOIi0YA-gM1jM3ZFW2DQeDI";
     @Override
@@ -76,7 +77,12 @@ public class CheckOutFragment extends Fragment {
         progressBar = view.findViewById(R.id.loader);
         UserId = firebaseAuth.getCurrentUser().getUid();
 
-
+        Bundle bundle = this.getArguments();
+        if (bundle != null){
+            Total = Integer.valueOf(bundle.getString("Total"));
+            ProductCount = Integer.valueOf(bundle.getString("Count"));
+            Service = bundle.getString("Service");
+        }
 
          firebaseFirestore.collection("Users").document(UserId)
                  .collection("Address").document(UserId)
@@ -129,20 +135,20 @@ public class CheckOutFragment extends Fragment {
              }
          });
 
-        firebaseFirestore.collection("Users").document(UserId).collection("Card")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        Total = 00;
-                        ProductCount = value.size();
-                        for (DocumentChange doc : value.getDocumentChanges()){
-                            Total = Total + Integer.valueOf(doc.getDocument().get("TotalPrice").toString());
-                            Log.d(TAG, "onEvent: " + Total);
-                        }
-                        Total += 50;
-                    }
-                });
+//        firebaseFirestore.collection("Users").document(UserId).collection("Card")
+//                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+//                    @SuppressLint("SetTextI18n")
+//                    @Override
+//                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                        Total = 00;
+//                        ProductCount = value.size();
+//                        for (DocumentChange doc : value.getDocumentChanges()){
+//                            Total = Total + Integer.valueOf(doc.getDocument().get("TotalPrice").toString());
+//                            Log.d(TAG, "onEvent: " + Total);
+//                        }
+//                        Total += 50;
+//                    }
+//                });
 
 
 
@@ -166,6 +172,7 @@ public class CheckOutFragment extends Fragment {
                     map.put("UserId",UserId);
                     map.put("TimeStamp",System.currentTimeMillis());
                     map.put("TotalPrice",Total);
+                    map.put("Service",Service);
                     map.put("Status","Pending");
                     map.put("Address",mAddress.getText().toString());
                     map.put("ProductCount",ProductCount);

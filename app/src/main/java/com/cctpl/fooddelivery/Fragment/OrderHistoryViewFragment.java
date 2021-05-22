@@ -89,10 +89,16 @@ public class OrderHistoryViewFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()){
                     String Status = task.getResult().getString("Status");
-                    if (Status.equals("Cancel") || Status.equals("Complete")){
+                    if (Status.equals("Cancel")){
                         TextView BtnCancelOrder = view.findViewById(R.id.btnCancelOrder);
                         BtnCancelOrder.setBackgroundResource(R.drawable.reorder_btn_bg);
-                        BtnCancelOrder.setText("Re-Order");
+                        BtnCancelOrder.setTextColor(Color.RED);
+                        BtnCancelOrder.setText("Order cancelled");
+                    }else if ( Status.equals("Complete")){
+                        TextView BtnCancelOrder = view.findViewById(R.id.btnCancelOrder);
+                        BtnCancelOrder.setBackgroundResource(R.drawable.reorder_btn_bg);
+                        BtnCancelOrder.setTextColor(Color.parseColor("#FF1B5E20"));
+                        BtnCancelOrder.setText("Order completed");
                     }
                 }
             }
@@ -103,32 +109,7 @@ public class OrderHistoryViewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String text = BtnCancelOrder.getText().toString();
-                if (text.equals("Re-Order")){
-                    HashMap<String ,Object> map = new HashMap<>();
-                    map.put("Status","Pending");
-                    map.put("TimeStamp",System.currentTimeMillis());
-                    firebaseFirestore.collection("Orders")
-                            .document(OrderId).update(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @SuppressLint("SetTextI18n")
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            BtnCancelOrder.setBackgroundResource(R.drawable.cancel_btn_bg);
-                            BtnCancelOrder.setText("Cancel Order");
-                            Dialog dialog = new Dialog(getContext());
-                            dialog.setContentView(R.layout.order_confirm_dialog);
-                            dialog.setCanceledOnTouchOutside(false);
-                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                            dialog.show();
-                            Button btnContinue = dialog.findViewById(R.id.btnContinue);
-                            btnContinue.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    dialog.dismiss();
-                                }
-                            });
-                        }
-                    });
-                }else {
+                if (text.equals("Cancel Order")){
                     HashMap<String ,Object> map = new HashMap<>();
                     map.put("Status","Cancel");
                     map.put("TimeStamp",System.currentTimeMillis());
@@ -137,8 +118,10 @@ public class OrderHistoryViewFragment extends Fragment {
                         @SuppressLint("SetTextI18n")
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            TextView BtnCancelOrder = view.findViewById(R.id.btnCancelOrder);
                             BtnCancelOrder.setBackgroundResource(R.drawable.reorder_btn_bg);
-                            BtnCancelOrder.setText("Re-Order");
+                            BtnCancelOrder.setTextColor(Color.RED);
+                            BtnCancelOrder.setText("Order cancelled");
                             Toast.makeText(getContext(), "Your order is cancel..", Toast.LENGTH_SHORT).show();
                         }
                     });

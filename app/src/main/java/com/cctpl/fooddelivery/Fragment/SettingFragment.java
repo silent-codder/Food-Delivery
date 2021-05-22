@@ -1,5 +1,9 @@
 package com.cctpl.fooddelivery.Fragment;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cctpl.fooddelivery.R;
+import com.cctpl.fooddelivery.WelcomeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,6 +96,33 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 Fragment fragment = new EditProfileFragment();
                 getFragmentManager().beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
+            }
+        });
+
+        mLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(v.getContext());
+                dialog.setContentView(R.layout.logout_dialog);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+                Button btnYes = dialog.findViewById(R.id.btnYes);
+                TextView btnCancel = dialog.findViewById(R.id.btnCancel);
+
+                btnYes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        firebaseAuth.signOut();
+                        startActivity(new Intent(getContext(), WelcomeActivity.class));
+                    }
+                });
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
 

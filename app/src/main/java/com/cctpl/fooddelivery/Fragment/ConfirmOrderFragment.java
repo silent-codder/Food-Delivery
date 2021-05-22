@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,11 +48,12 @@ public class ConfirmOrderFragment extends Fragment {
     String UserId;
 
     TextView mBtnEditCard;
-    TextView mTotalPrice;
+    TextView mTotalPrice,mDeliveryCharge;
     Button mBtnOrderNow;
     ProgressBar progressBar;
     int Total,ProductCount;
-
+    RadioButton mBtnHome,mBtnSelf;
+    String Service;
     RecyclerView recyclerView;
     List<CardData> cardData;
     FinalCardAdapter finalCardAdapter;
@@ -67,13 +69,18 @@ public class ConfirmOrderFragment extends Fragment {
         mBtnOrderNow = view.findViewById(R.id.btnOrderNow);
         mTotalPrice = view.findViewById(R.id.totalPrice);
         mBtnEditCard = view.findViewById(R.id.btnEditCard);
+        mDeliveryCharge = view.findViewById(R.id.deliveryCharge);
         recyclerView = view.findViewById(R.id.recycleView);
+        mBtnHome = view.findViewById(R.id.homeDelivery);
+        mBtnSelf = view.findViewById(R.id.selfPickup);
         UserId = firebaseAuth.getCurrentUser().getUid();
 
         cardData = new ArrayList<>();
         finalCardAdapter = new FinalCardAdapter(cardData);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(finalCardAdapter);
+
+        Service = "Self Service";
 
         firebaseFirestore.collection("Users")
                 .document(UserId).collection("Card").addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -92,7 +99,6 @@ public class ConfirmOrderFragment extends Fragment {
             }
         });
 
-
         firebaseFirestore.collection("Users").document(UserId).collection("Card")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @SuppressLint("SetTextI18n")
@@ -106,20 +112,11 @@ public class ConfirmOrderFragment extends Fragment {
                             TextView subTotal = view.findViewById(R.id.subTotalPrice);
                             subTotal.setText("₹ " +Total);
                         }
-                        Total += 50;
+//                        Total += 50;
                         mTotalPrice.setText("₹ " +Total);
                     }
                 });
 
-        mBtnOrderNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment fragment = new CheckOutFragment();
-                getFragmentManager().beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
-
-            }
-        });
 
         mBtnEditCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +126,82 @@ public class ConfirmOrderFragment extends Fragment {
             }
         });
 
+        mBtnSelf.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+
+                if (Service.equals("Home Delivery")){
+                    firebaseFirestore.collection("Users").document(UserId).collection("Card")
+                            .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                @SuppressLint("SetTextI18n")
+                                @Override
+                                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    Total = 00;
+                                    ProductCount = value.size();
+                                    for (DocumentChange doc : value.getDocumentChanges()){
+                                        Total = Total + Integer.valueOf(doc.getDocument().get("TotalPrice").toString());
+                                        Log.d(TAG, "onEvent: " + Total);
+                                        TextView subTotal = view.findViewById(R.id.subTotalPrice);
+                                        subTotal.setText("₹ " +Total);
+                                    }
+//                        Total += 50;
+                                    mTotalPrice.setText("₹ " +Total);
+                                }
+                            });
+                    mDeliveryCharge.setText("Free");
+                }else {
+                    Service = "Self Service";
+                    mDeliveryCharge.setText("Free");
+                }
+            }
+        });
+
+        mBtnHome.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                Service = "Home Delivery";
+                mDeliveryCharge.setText("₹ 50");
+                AddCharge();
+            }
+        });
+
+        mBtnOrderNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new CheckOutFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("Total",String.valueOf(Total));
+                bundle.putString("Service",Service);
+                bundle.putString("Count",String.valueOf(ProductCount));
+                fragment.setArguments(bundle);
+                getFragmentManager().beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
+
+            }
+        });
+
         return view;
     }
+
+    private void AddCharge() {
+        firebaseFirestore.collection("Users").document(UserId).collection("Card")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        Total = 00;
+                        ProductCount = value.size();
+                        for (DocumentChange doc : value.getDocumentChanges()){
+                            Total = Total + Integer.valueOf(doc.getDocument().get("TotalPrice").toString());
+                            Log.d(TAG, "onEvent: " + Total);
+                            TextView subTotal = getView().findViewById(R.id.subTotalPrice);
+                            subTotal.setText("₹ " +Total);
+                        }
+                        Total += 50;
+                        mTotalPrice.setText("₹ " +Total);
+                    }
+                });
+    }
+
 }
