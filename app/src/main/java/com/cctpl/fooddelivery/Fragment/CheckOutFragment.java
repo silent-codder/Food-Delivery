@@ -208,7 +208,7 @@ public class CheckOutFragment extends Fragment {
                                                     Log.d(TAG, "Comp: " +Count + ">=" + ProductCount);
                                                     if (Count>=ProductCount){
                                                         String Title = "New Order !!";
-                                                        String Msg = "New ₹ " + TotalPrice + " rupees order.";
+                                                        String Msg = "New ₹ " + Total + " rupees order.";
                                                         HashMap<String,Object> map = new HashMap<>();
                                                         map.put("Msg",Msg);
                                                         map.put("Title",Title);

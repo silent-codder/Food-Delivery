@@ -116,17 +116,17 @@ public class ProductCatListAdapter extends RecyclerView.Adapter<ProductCatListAd
                     }
                 });
 
-        holder.mProductImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment fragment = new ProductViewFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("ProductId",ProductId);
-                fragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
-            }
-        });
+//        holder.mProductImg.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                Fragment fragment = new ProductViewFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("ProductId",ProductId);
+//                fragment.setArguments(bundle);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment).addToBackStack(null).commit();
+//            }
+//        });
         holder.mBtnAddToCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

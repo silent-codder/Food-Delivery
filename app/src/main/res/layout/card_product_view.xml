@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="loading.."
+            android:textStyle="bold"
             android:fontFamily="@font/candal"
             android:textColor="@color/secondary"
             android:layout_toRightOf="@id/productImg"
